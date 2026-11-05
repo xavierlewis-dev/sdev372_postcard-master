@@ -1,0 +1,25 @@
+
+services:
+  api:
+    build: ./api
+    ports:
+      - "8080:8080"
+    environment:
+      ADMIN_TOKEN: ${ADMIN_TOKEN}
+      APP_VERSION: ${APP_VERSION}
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: mariadb:11.8
+    environment:
+      MARIADB_ROOT_PASSWORD: ${ROOT_PASSWORD}
+      MARIADB_DATABASE: postcard
+      MARIADB_USER: postcard
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postcard-data:/var/lib/mysql
+
+volumes:
+  postcard-data:
