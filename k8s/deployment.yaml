@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postcard-api
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: postcard-api
+  template:
+    metadata:
+      labels:
+        app: postcard-api
+    spec: 
+      containers:
+        - name: api 
+          image: archerjb/postcard-api:1
+          ports:
+            - containerPort: 8080
